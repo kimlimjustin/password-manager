@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <link type = "text/css" rel="stylesheet" href="{% static 'index/HurlUI.css' %}">
+    <script src ="{% static 'index/HurlUI.js' %}"></script>
+    {% block script %}
+    {% endblock %}
+</head>
+<body>
+	<nav class="navbar bg-light text-dark">
+		<a class="nav-logo" href="/">Home Page</a>
+		<span id="nav-icon" class="nav-icon" data-target="nav-list">☰</span>
+		<ul class="nav-list" id="nav-list">
+			{% if not user.is_authenticated %}
+			<li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+			<li class="nav-item"><a href="{% url 'register' %}">Register</a></li>
+			{% else %}
+			<li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+			{% endif %}
+		</ul>
+	</nav>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>
