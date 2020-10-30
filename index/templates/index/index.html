@@ -1,3 +1,35 @@
 {% extends 'index/layout.html' %}
+{% load static %}
+{% block script %}
+<script type="text/javascript" src="{% static 'index/script.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+{% endblock %}
 {% block body %}
+<div class="container">
+	<table class="table-border">
+		<tr>
+			<th>Name</th>
+			<th>Password</th>
+			<th>Operations</th>
+		</tr>
+		{% for i in models %}
+		<tr>
+			<th>{{i.name}}</th>
+			<th>{{i.password}}</th>
+			<th><button class="btn btn-danger" id="delete" data-delete = "{{i.password}}">Delete</button></th>
+		</tr>
+		{% endfor %}
+	</table>
+	<form class="box box-shadow margin-top-bottom" method="post" action="{% url 'create' %}">
+		<h1 class="box-title">Create new</h1>
+		<div class="form-group">
+			{% csrf_token %}
+			<p class="form-label">Name:</p>
+			<input type="text" name="target-name" class="form-control">
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-dark form-control" value="Generate a password">
+		</div>
+	</form>
+</div>
 {% endblock %}
